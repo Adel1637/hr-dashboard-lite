@@ -101,8 +101,9 @@ const locale = () => (app.lang === "fr" ? "fr-FR" : "en-US");
 
 export function fmtNumber(value, digits = 0) {
   if (value === null || value === undefined) return t("common.no_value");
+  // Espace insécable normale plutôt que l'espace fine (U+202F), trop étroite à l'écran.
   return new Intl.NumberFormat(locale(), { maximumFractionDigits: digits,
-    minimumFractionDigits: digits }).format(value);
+    minimumFractionDigits: digits }).format(value).replace(/\u202f/g, "\u00a0");
 }
 
 export function fmtDate(iso, opts = { day: "2-digit", month: "short", year: "numeric" }) {

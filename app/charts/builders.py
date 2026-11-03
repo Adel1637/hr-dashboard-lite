@@ -15,7 +15,7 @@ import plotly.io as pio
 
 NEUTRAL = "#94A3B8"
 SECONDARY = ("#6366F1", "#F59E0B", "#EC4899", "#10B981", "#8B5CF6", "#64748B")
-FONT = "Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif"
+FONT = "Plus Jakarta Sans, system-ui, -apple-system, Segoe UI, Roboto, sans-serif"
 
 
 def palette(accent: str) -> list[str]:

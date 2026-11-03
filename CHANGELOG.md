@@ -13,6 +13,6 @@ First public release of the Lite edition.
   contract, sex)
 - Data table with server-side search, sorting and pagination
 - Single admin account, scrypt password hashing, JWT sessions, login rate limiting, strict CSP
-- Light and dark themes, French and English
+- Light and dark themes, French and English, bundled Plus Jakarta Sans font (works offline)
 - Fictional data generator (50, 1,000 and 20,000 employees)
 - Docker image, GitHub Actions CI, pytest suite

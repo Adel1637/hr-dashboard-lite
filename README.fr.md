@@ -107,5 +107,6 @@ ruff check .
 
 ## Licence
 
-[MIT](LICENSE) : usage libre, personnel et commercial.
+[MIT](LICENSE) : usage libre, personnel et commercial. La police Plus Jakarta Sans incluse est
+sous licence SIL Open Font License 1.1 (`frontend/fonts/OFL-PlusJakartaSans.txt`).
 La version Pro est distribuée sous une licence commerciale distincte.

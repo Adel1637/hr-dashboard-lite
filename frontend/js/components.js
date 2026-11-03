@@ -68,7 +68,8 @@ export function plot(node, figure) {
   const text = cssVar("--text-2");
   const grid = cssVar("--grid");
   const layout = structuredClone(figure.layout || {});
-  layout.font = { ...(layout.font || {}), color: text };
+  const family = cssVar("--font");
+  layout.font = { ...(layout.font || {}), family, color: text };
   layout.separators = app.lang === "fr" ? ", " : ".,";
   for (const key of Object.keys(layout)) {
     if (/^[xy]axis\d*$/.test(key)) {
@@ -79,7 +80,7 @@ export function plot(node, figure) {
   if (!layout.yaxis) layout.yaxis = { gridcolor: grid };
   layout.legend = { ...(layout.legend || {}), font: { color: text } };
   layout.hoverlabel = { ...(layout.hoverlabel || {}), bgcolor: cssVar("--surface"),
-    bordercolor: cssVar("--border-strong"), font: { color: cssVar("--text") } };
+    bordercolor: cssVar("--border-strong"), font: { family, color: cssVar("--text") } };
   layout.autosize = true;
   window.Plotly.react(node, figure.data, layout, {
     displaylogo: false,

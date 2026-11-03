@@ -118,5 +118,6 @@ ruff check .
 
 ## License
 
-[MIT](LICENSE) — free for personal and commercial use.
+[MIT](LICENSE) — free for personal and commercial use. The bundled Plus Jakarta Sans font is
+licensed under the SIL Open Font License 1.1 (`frontend/fonts/OFL-PlusJakartaSans.txt`).
 The Pro version is distributed under a separate commercial licence.
