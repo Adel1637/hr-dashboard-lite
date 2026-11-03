@@ -32,7 +32,7 @@ No cloud, no internet access required, no data leaves your network.
 ## Quick start
 
 ```bash
-git clone https://github.com/<you>/hr-dashboard-lite.git
+git clone https://github.com/Adel1637/hr-dashboard-lite.git
 cd hr-dashboard-lite
 python -m venv .venv && source .venv/bin/activate     # Windows: .venv\Scripts\activate
 pip install -r requirements.txt
@@ -82,7 +82,7 @@ dashboards to clients, and for in-house IT teams.
 | Audit log (logins, imports, exports) | | ✓ |
 | Full documentation, module guide, commercial licence, updates and support | | ✓ |
 
-**→ [Get the Pro version](PRO_URL)**
+**→ Pro version launching soon. [Follow me on GitHub](https://github.com/Adel1637) to be notified.**
 
 The locked Pro tabs shown in the app can be hidden with `SHOW_PRO_HINTS=false` in `.env`.
 

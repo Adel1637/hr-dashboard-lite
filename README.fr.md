@@ -34,7 +34,7 @@ Pas de cloud, pas besoin d'Internet, aucune donnée ne sort de votre réseau.
 ## Démarrage rapide
 
 ```bash
-git clone https://github.com/<vous>/hr-dashboard-lite.git
+git clone https://github.com/Adel1637/hr-dashboard-lite.git
 cd hr-dashboard-lite
 python -m venv .venv && source .venv/bin/activate     # Windows : .venv\Scripts\activate
 pip install -r requirements.txt
@@ -86,7 +86,7 @@ des tableaux de bord RH à leurs clients, et pour les services informatiques int
 | Journal d'audit (connexions, imports, exports) | | ✓ |
 | Documentation complète, guide d'ajout de module, licence commerciale, mises à jour et support | | ✓ |
 
-**→ [Obtenir la version Pro](PRO_URL)**
+**→ Version Pro bientôt disponible. [Suivez-moi sur GitHub](https://github.com/Adel1637) pour être prévenu.**
 
 Les onglets Pro verrouillés affichés dans l'application se masquent avec `SHOW_PRO_HINTS=false`.
 
