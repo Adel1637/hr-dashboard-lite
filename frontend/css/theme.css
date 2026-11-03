@@ -1,0 +1,57 @@
+/* ------------------------------------------------------------------
+   Thème : toutes les couleurs, rayons, ombres et polices sont ici.
+   --accent est injecté au démarrage depuis APP_ACCENT (config serveur) :
+   ne mettez aucune couleur d'accent en dur ailleurs.
+   ------------------------------------------------------------------ */
+:root {
+  --accent: #0D9488;
+  --accent-ink: #FFFFFF;
+  --accent-soft: color-mix(in srgb, var(--accent) 12%, transparent);
+  --accent-line: color-mix(in srgb, var(--accent) 45%, transparent);
+
+  --bg: #F4F6F8;
+  --surface: #FFFFFF;
+  --surface-2: #F8FAFB;
+  --surface-sunken: #EEF2F5;
+  --border: #E2E8EE;
+  --border-strong: #CBD5DF;
+  --text: #0F172A;
+  --text-2: #475569;
+  --text-3: #8492A6;
+  --grid: #E8EDF2;
+
+  --good: #059669;
+  --bad: #DC2626;
+  --warn: #D97706;
+
+  --font: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, "SF Mono", "Cascadia Mono", Consolas, monospace;
+
+  --radius: 12px;
+  --radius-sm: 8px;
+  --shadow: 0 1px 2px rgba(15, 23, 42, .05), 0 4px 16px rgba(15, 23, 42, .05);
+  --shadow-pop: 0 2px 6px rgba(15, 23, 42, .08), 0 16px 40px rgba(15, 23, 42, .12);
+  --sidebar-w: 232px;
+  color-scheme: light;
+}
+
+:root[data-theme="dark"] {
+  --accent-ink: #04201D;
+  --accent-soft: color-mix(in srgb, var(--accent) 18%, transparent);
+  --bg: #0B1118;
+  --surface: #121A23;
+  --surface-2: #16202B;
+  --surface-sunken: #0E151D;
+  --border: #233040;
+  --border-strong: #31435A;
+  --text: #E6EDF5;
+  --text-2: #A3B1C2;
+  --text-3: #6B7C91;
+  --grid: #1E2A37;
+  --good: #34D399;
+  --bad: #F87171;
+  --warn: #FBBF24;
+  --shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 4px 16px rgba(0, 0, 0, .25);
+  --shadow-pop: 0 2px 6px rgba(0, 0, 0, .35), 0 16px 40px rgba(0, 0, 0, .45);
+  color-scheme: dark;
+}

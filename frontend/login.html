@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Connexion</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/css/theme.css">
+  <link rel="stylesheet" href="/css/app.css">
+</head>
+<body>
+  <main class="login-page">
+    <section class="login-art" aria-hidden="true">
+      <svg class="topo" viewBox="0 0 600 800" preserveAspectRatio="xMidYMid slice" fill="none"
+           stroke="currentColor" stroke-width="1.2">
+        <path d="M-40 120c90-40 160 30 250 0s150-90 260-60 160 80 200 60"/>
+        <path d="M-40 180c100-30 170 40 260 10s160-80 260-50 150 70 190 55"/>
+        <path d="M-40 250c110-20 180 50 270 20s170-70 260-40 140 60 180 50"/>
+        <path d="M-40 330c120-10 190 60 280 30s180-60 250-30 130 50 170 45"/>
+        <path d="M-40 420c120 0 200 70 290 40s190-50 240-20 120 40 160 40"/>
+        <path d="M-40 510c130 10 210 80 300 50s190-40 230-10 110 30 150 35"/>
+        <path d="M-40 600c130 20 220 90 310 60s190-30 220 0 100 20 140 30"/>
+        <path d="M-40 690c140 30 230 100 320 70s190-20 210 10 90 10 130 25"/>
+        <ellipse cx="420" cy="300" rx="70" ry="40"/>
+        <ellipse cx="420" cy="300" rx="120" ry="75"/>
+        <ellipse cx="160" cy="560" rx="55" ry="30"/>
+        <ellipse cx="160" cy="560" rx="100" ry="60"/>
+      </svg>
+      <div class="brand">
+        <div class="brand-mark" id="brand-mark">R</div>
+        <div>
+          <div class="brand-name" id="brand-name"></div>
+          <div id="brand-company"></div>
+        </div>
+      </div>
+      <h2 data-i18n="app.tagline"></h2>
+      <div class="label" style="color: inherit; opacity: .8;" id="year"></div>
+    </section>
+
+    <section class="login-form-wrap">
+      <form class="login-form" id="login-form" novalidate>
+        <div>
+          <div class="label" id="form-brand"></div>
+          <h1 data-i18n="login.title"></h1>
+        </div>
+        <div class="notice error" id="login-error" role="alert" hidden></div>
+        <label class="field">
+          <span class="label" data-i18n="login.username"></span>
+          <input class="input" name="username" autocomplete="username" required autofocus>
+        </label>
+        <label class="field">
+          <span class="label" data-i18n="login.password"></span>
+          <input class="input" name="password" type="password" autocomplete="current-password" required>
+        </label>
+        <button class="btn primary" type="submit" data-i18n="login.submit"></button>
+      </form>
+    </section>
+  </main>
+  <script type="module" src="/js/login.js"></script>
+</body>
+</html>

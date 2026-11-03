@@ -1,0 +1,14 @@
+services:
+  dashboard:
+    build: .
+    env_file: .env
+    environment:
+      DATA_DIR: /data
+    ports:
+      - "8000:8000"
+    volumes:
+      - kit-data:/data
+    restart: unless-stopped
+
+volumes:
+  kit-data:
