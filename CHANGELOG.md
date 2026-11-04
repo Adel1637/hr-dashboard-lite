@@ -2,6 +2,13 @@
 
 This project follows [Semantic Versioning](https://semver.org/).
 
+## [Unreleased]
+
+### Fixed
+
+- Sign-in page: white text on a darkened accent, readable in both themes and with any accent
+  colour (WCAG AA contrast checked by a test).
+
 ## [0.1.0] — 2026-11-02
 
 First public release of the Lite edition.

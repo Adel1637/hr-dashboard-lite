@@ -258,7 +258,10 @@ table.grid { border-collapse: separate; border-spacing: 0; width: 100%; font-siz
 /* ---- Connexion ---------------------------------------------------- */
 .login-page { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(360px, 1fr); min-height: 100vh; }
 .login-art {
-  position: relative; overflow: hidden; background: var(--accent); color: var(--accent-ink);
+  position: relative; overflow: hidden; color: #fff;
+  /* Fond = couleur d'accent assombrie : le texte blanc reste lisible quel que soit le thème
+     ou l'accent choisi (voir tests/test_login_contrast.py). */
+  background: color-mix(in srgb, var(--accent) 70%, #000);
   padding: 48px; display: flex; flex-direction: column; justify-content: space-between;
 }
 .login-art svg.topo { position: absolute; inset: 0; width: 100%; height: 100%; opacity: .22; }
