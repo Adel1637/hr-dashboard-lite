@@ -4,7 +4,7 @@
 
 [Version française](README.fr.md) · [Pro version](#lite-vs-pro)
 
-![Headcount dashboard](docs/screenshots/dashboard-en.png)
+![Demo: sign in, headcount dashboard, data table and dark theme](docs/demo.gif)
 
 HR Dashboard Lite is a free, self-hosted web app built with **FastAPI, Pandas and Plotly**, with a
 framework-free HTML/CSS/JS front end. Drop the employee file you already export from your payroll or

@@ -5,7 +5,7 @@ sur votre propre serveur.**
 
 [English version](README.md) · [Version Pro](#lite-ou-pro)
 
-![Tableau de bord des effectifs](docs/screenshots/dashboard-fr.png)
+![Démonstration : connexion, tableau de bord des effectifs, tableau de données et thème sombre (légendes en anglais)](docs/demo.gif)
 
 Dashboard RH Lite est une application web gratuite, installée chez vous, construite avec
 **FastAPI, Pandas et Plotly** et une interface HTML/CSS/JS sans framework. Déposez le fichier du
