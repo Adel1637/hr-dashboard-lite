@@ -12,6 +12,7 @@ This project follows [Semantic Versioning](https://semver.org/).
   blank rows (before the header or between data); it was shifted by the number of blank rows.
 - Import report: row error messages follow the interface language (they were always French) and
   the counters no longer read "1 rows".
+- Phones: tapping outside the side menu closes it (it only closed when changing page).
 - CSV import: a one-column title above the header row no longer makes the file unreadable.
 - Sign-in page: white text on a darkened accent, readable in both themes and with any accent
   colour (WCAG AA contrast checked by a test).

@@ -35,6 +35,12 @@ function setupChrome() {
   document.getElementById("menu-btn").innerHTML = icon("menu");
   document.getElementById("menu-btn").addEventListener("click", () =>
     shell.classList.toggle("nav-open"));
+  // Sur téléphone, un appui en dehors du menu le referme.
+  document.addEventListener("click", (e) => {
+    if (shell.classList.contains("nav-open") && !e.target.closest(".sidebar, #menu-btn")) {
+      shell.classList.remove("nav-open");
+    }
+  });
 
   const logout = document.getElementById("logout-btn");
   logout.innerHTML = icon("logout");
