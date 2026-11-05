@@ -4,6 +4,8 @@ This project follows [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+## [0.1.1] — 2026-11-05
+
 ### Fixed
 
 - Import on phones: the column-mapping screen no longer overflows the page (dropdowns were

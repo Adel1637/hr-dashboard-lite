@@ -16,7 +16,7 @@ from app.api.routes import auth, dashboard, data, datasets
 from app.config import FRONTEND_DIR, LOCALES_DIR, Settings, get_settings
 from app.state import KitState
 
-__version__ = "0.1.0"
+__version__ = "0.1.1"
 PLOTLY_JS = Path(plotly.__file__).parent / "package_data" / "plotly.min.js"
 
 SECURITY_HEADERS = {
