@@ -3,7 +3,7 @@
 **Transformez un export Excel RH en tableau de bord des effectifs sécurisé, en quelques minutes,
 sur votre propre serveur.**
 
-[English version](README.md) · [Version Pro](#lite-ou-pro)
+[Site web](https://adel1637.github.io/hr-dashboard-lite/fr/) · [English version](README.md) · [Version Pro](#lite-ou-pro)
 
 ![Démonstration : connexion, tableau de bord des effectifs, tableau de données et thème sombre (légendes en anglais)](docs/demo.gif)
 
@@ -33,20 +33,54 @@ Pas de cloud, pas besoin d'Internet, aucune donnée ne sort de votre réseau.
 
 ## Démarrage rapide
 
+Il vous faut **Python 3.11 ou plus récent** et Git, ou simplement Docker.
+
+**1. Télécharger et installer**
+
 ```bash
 git clone https://github.com/Adel1637/hr-dashboard-lite.git
 cd hr-dashboard-lite
 python -m venv .venv && source .venv/bin/activate     # Windows : .venv\Scripts\activate
 pip install -r requirements.txt
-cp .env.example .env                                  # renseignez JWT_SECRET et ADMIN_PASSWORD
+```
+
+**2. Configurer** (facultatif pour un premier essai)
+
+```bash
+cp .env.example .env                                  # Windows : copy .env.example .env
+```
+
+Dans `.env`, renseignez `ADMIN_PASSWORD` et, dès que vous dépassez le simple test local,
+`JWT_SECRET` (`python -c "import secrets; print(secrets.token_urlsafe(48))"`). Si vous laissez
+`ADMIN_PASSWORD` vide, un mot de passe aléatoire est généré et affiché **une seule fois** dans le
+terminal au premier démarrage.
+
+**3. Créer les fichiers de démo et lancer l'application**
+
+```bash
 python demo_data/generate.py                          # fichiers fictifs de 50, 1 000 et 20 000 salariés
 uvicorn app.main:app --reload
 ```
 
-Ouvrez <http://localhost:8000>, connectez-vous avec le compte `admin`, puis importez
-`demo_data/personnel_demo_1000.xlsx`.
+**4. Essayer**
 
-Avec Docker : `docker compose up -d --build`.
+1. Ouvrez <http://localhost:8000> et connectez-vous avec le compte `admin`.
+2. Allez dans **Import**, choisissez `demo_data/personnel_demo_1000.xlsx`, vérifiez la correspondance
+   des colonnes et confirmez.
+3. Ouvrez **Tableau de bord** : effectif, évolution et répartitions suivent les filtres du haut.
+
+Avec Docker : `docker compose up -d --build`, puis ouvrez <http://localhost:8000>.
+
+### En cas de problème
+
+| Symptôme | Solution |
+| --- | --- |
+| `python: command not found` ou erreur de version | Installez Python 3.11+, ou utilisez `python3` / `py -3.11`. |
+| `uvicorn: command not found` | Activez d'abord l'environnement virtuel (`source .venv/bin/activate`). |
+| Le port 8000 est déjà utilisé | Lancez `uvicorn app.main:app --port 8001` et ouvrez ce port. |
+| Mot de passe administrateur perdu | Supprimez `data/users.json`, renseignez éventuellement `ADMIN_PASSWORD` dans `.env`, puis redémarrez : le compte admin est recréé. |
+| L'import indique une ligne rejetée | Ouvrez le fichier Excel à la ligne indiquée. Le rapport donne la cause de chaque ligne. |
+| L'application refuse de démarrer en production | `APP_ENV=production` exige un `JWT_SECRET` d'au moins 32 caractères. |
 
 ### Votre propre fichier
 
@@ -89,6 +123,35 @@ des tableaux de bord RH à leurs clients, et pour les services informatiques int
 **→ Version Pro bientôt disponible. [Suivez-moi sur GitHub](https://github.com/Adel1637) pour être prévenu.**
 
 Les onglets Pro verrouillés affichés dans l'application se masquent avec `SHOW_PRO_HINTS=false`.
+
+## FAQ
+
+**Est-ce vraiment gratuit ?** Oui. Licence MIT : usage personnel et commercial, modification et
+livraison à des clients autorisés.
+
+**Mes données quittent-elles mon serveur ?** Non. L'application tourne sur votre machine ou votre
+réseau, conserve les imports dans son dossier de données, embarque sa police et n'a pas besoin
+d'Internet. Aucun suivi.
+
+**De quoi mon fichier a-t-il besoin ?** D'un fichier `.xlsx` ou `.csv` avec une ligne par salarié,
+présent ou parti. Seuls un matricule et une date d'entrée sont obligatoires ; l'étape de
+correspondance associe vos en-têtes.
+
+**Que se passe-t-il quand une ligne est fausse ?** Le rapport d'import liste chaque problème avec
+son numéro de ligne Excel et indique si la ligne est rejetée ou si la valeur est ignorée.
+
+**Quelle taille de fichier ?** 25 Mo par défaut (`MAX_UPLOAD_MB`). 20 000 salariés s'importent et se
+valident en moins d'une seconde.
+
+**Comment changer la couleur, le logo ou la langue ?** `APP_ACCENT`, `APP_LOGO` et
+`APP_DEFAULT_LANG` dans `.env`, puis redémarrez.
+
+**Puis-je utiliser Lite pour un projet client ?** Oui, la licence MIT l'autorise. Pro ajoute les
+modules Mouvements, Démographie et Formation, les exports, les utilisateurs multiples et le journal
+d'audit.
+
+**Où signaler un bug ?** [Ouvrez un ticket](https://github.com/Adel1637/hr-dashboard-lite/issues).
+Un petit fichier d'exemple qui reproduit le problème accélère beaucoup la correction.
 
 ## Configuration
 

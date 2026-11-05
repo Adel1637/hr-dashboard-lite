@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HR Dashboard Lite: free HR dashboard from an Excel export</title>
+<meta name="description" content="Free, self-hosted HR headcount dashboard. Import an Excel or CSV export, get exact error row numbers, filters and charts. FastAPI + Pandas, MIT.">
+<link rel="canonical" href="https://adel1637.github.io/hr-dashboard-lite/">
+<link rel="alternate" hreflang="en" href="https://adel1637.github.io/hr-dashboard-lite/">
+<link rel="alternate" hreflang="fr" href="https://adel1637.github.io/hr-dashboard-lite/fr/">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<meta property="og:title" content="HR Dashboard Lite: free HR dashboard from an Excel export">
+<meta property="og:description" content="Free, self-hosted HR headcount dashboard. Import an Excel or CSV export, get exact error row numbers, filters and charts. FastAPI + Pandas, MIT.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://adel1637.github.io/hr-dashboard-lite/">
+<meta property="og:image" content="https://adel1637.github.io/hr-dashboard-lite/assets/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preload" href="assets/fonts/plus-jakarta-sans-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/site.css">
+<script>try{if(!localStorage.getItem("lang-choice")&&/^fr/i.test(navigator.language||""))location.replace("fr/")}catch(e){}</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="wrap">
+<header class="top">
+  <a class="brand" href="./"><svg viewBox="0 0 48 48" aria-hidden="true"><rect width="48" height="48" rx="11" fill="#0D9488"/><text x="24" y="33" text-anchor="middle" font-family="Plus Jakarta Sans,sans-serif" font-weight="800" font-size="26" fill="#fff">D</text></svg>HR Dashboard Lite</a>
+  <nav aria-label="Main"><a class="hide-s" href="#screens">Screens</a><a class="hide-s" href="#quickstart">Quick start</a><a class="hide-s" href="#compare">Lite vs Pro</a><a class="hide-s" href="#plans">Plans</a><a class="hide-s" href="#faq">FAQ</a><a class="hide-s" href="https://github.com/Adel1637/hr-dashboard-lite">GitHub</a><a class="lang" href="fr/" hreflang="fr" lang="fr" onclick='try{localStorage.setItem("lang-choice","1")}catch(e){}'>Français</a></nav>
+</header>
+<main id="main">
+<div class="hero">
+  <div>
+    <h1>Turn an Excel HR export into a headcount dashboard.</h1>
+    <p class="lead">Free, open source and installed on your own server. When a row in your file is invalid, the import report names the exact line number Excel shows.</p>
+    <div class="cta"><a class="btn primary" href="https://github.com/Adel1637/hr-dashboard-lite">Get it on GitHub</a><a class="btn" href="#screens">See the screens</a></div>
+    <ul class="facts"><li>MIT licence</li><li>49 automated tests</li><li>French and English</li><li>No cloud, no tracking</li></ul>
+  </div>
+  <div class="sheet" role="group" aria-label="Row numbers as Excel shows them">
+    <div class="sheet-bar"><span>personnel.xlsx</span><span>Row numbers as Excel shows them</span></div>
+    <table class="grid"><thead><tr><th class="n"></th><th>A</th><th>B</th><th class="c4">C</th><th class="h4">D</th></tr></thead><tbody><tr><td class="n">3</td><td style="font-weight:700">ID</td><td style="font-weight:700">Hire date</td><td style="font-weight:700" class="c4">Exit date</td><td style="font-weight:700" class="h4">Department</td></tr><tr><td class="n">4</td><td>E-0001</td><td>12/03/2018</td><td class="c4"></td><td class="h4">Finance</td></tr><tr class="gap"><td class="n">…</td><td colspan="4">…</td></tr><tr><td class="n">347</td><td>E-0344</td><td>02/09/2022</td><td class="c4"></td><td class="h4">Logistics</td></tr><tr class="bad"><td class="n">348</td><td>E-0345</td><td>14/06/2021</td><td class="c4">01/03/2019</td><td class="h4">Logistics</td></tr><tr><td class="n">349</td><td>E-0346</td><td>05/01/2023</td><td class="c4"></td><td class="h4">Sales</td></tr></tbody></table>
+    <div class="report"><b>Import report: 1 row rejected</b><p><span class="row">Row 348</span>Exit date is earlier than hire date (row rejected)</p></div>
+  </div>
+</div>
+</main>
+</div>
+
+<section id="screens" class="alt"><div class="wrap">
+  <h2>Dashboard, data and import</h2><p class="sub">Real screens from the free edition, with fictional data. The interface is available in French and English, in light and dark.</p>
+  <div class="tabs" role="tablist" aria-label="Dashboard, data and import"><button role="tab" id="t-s1" aria-controls="p-s1" aria-selected="true" tabindex="0">Dashboard</button><button role="tab" id="t-s2" aria-controls="p-s2" aria-selected="false" tabindex="-1">Dark theme</button><button role="tab" id="t-s3" aria-controls="p-s3" aria-selected="false" tabindex="-1">Import and mapping</button></div>
+  <div role="tabpanel" id="p-s1" aria-labelledby="t-s1"><figure style="margin:0"><div class="shot"><img src="assets/img/dashboard-en.webp" width="1600" height="1012" alt="Dashboard: Headcount at a date, change over the period, permanent-contract share, monthly trend. Every chart follows the global filters." ></div><figcaption class="shot-cap">Headcount at a date, change over the period, permanent-contract share, monthly trend. Every chart follows the global filters.</figcaption></figure></div><div role="tabpanel" id="p-s2" aria-labelledby="t-s2" hidden><figure style="margin:0"><div class="shot"><img src="assets/img/dashboard-dark-en.webp" width="1600" height="1012" alt="Dark theme: The same dashboard in the dark theme. The accent colour and logo come from your .env file." loading="lazy"></div><figcaption class="shot-cap">The same dashboard in the dark theme. The accent colour and logo come from your .env file.</figcaption></figure></div><div role="tabpanel" id="p-s3" aria-labelledby="t-s3" hidden><figure style="margin:0"><div class="shot"><img src="assets/img/import-en.webp" width="1600" height="1012" alt="Import and mapping: The column-mapping step recognises French and English headers, remembers your choice and checks the file before importing." loading="lazy"></div><figcaption class="shot-cap">The column-mapping step recognises French and English headers, remembers your choice and checks the file before importing.</figcaption></figure></div>
+  <figure class="demo"><img src="assets/../demo.gif" width="900" height="506" loading="lazy" alt="Demo: sign in, dashboard, data table, dark theme"></figure>
+</div></section>
+
+<section id="features"><div class="wrap">
+  <h2>What the free edition does</h2><p class="sub">Everything you need to go from the export your payroll software gives you to a dashboard your team can open.</p>
+  <ul class="feat"><li><h3>Excel and CSV import</h3><p>Header row, separator and encoding are detected. A title line or blank lines above the data are fine.</p></li><li><h3>A mapping step that remembers</h3><p>Recognises headers such as “Hire date”, “Date d&#x27;embauche” or “Grade”, and keeps your choices for the next import.</p></li><li><h3>Exact line numbers</h3><p>Each error in the report carries the row number Excel shows, even with blank rows before or between the data.</p></li><li><h3>Headcount module</h3><p>Headcount at a date and its change, permanent-contract share, monthly trend, split by department, site and category.</p></li><li><h3>Global filters</h3><p>Reference date, period, site, department, category, contract and sex, applied everywhere at once.</p></li><li><h3>A data table that scales</h3><p>Search, sort and pagination run on the server. Tested on 20,000 employees: import and validation take under a second.</p></li><li><h3>Security included</h3><p>Passwords hashed with scrypt, JWT sessions, login rate limiting, strict Content-Security-Policy, no secret in the code.</p></li><li><h3>Yours to brand</h3><p>Light and dark themes, French and English, your colour and logo, and a layout that works on a phone.</p></li></ul>
+</div></section>
+
+<section id="quickstart" class="alt"><div class="wrap">
+  <h2>Run it in five minutes</h2><p class="sub">You need Python 3.11 or newer, or Docker.</p>
+  <div class="qs">
+    <ol class="steps"><li><h3>Download and install</h3><p>Clone the repository, create a virtual environment and install the dependencies.</p></li><li><h3>Set your secrets</h3><p>Copy .env.example to .env and set ADMIN_PASSWORD. If you leave it empty, a random password is printed once when the app first starts.</p></li><li><h3>Create demo files</h3><p>Generates fictional files of 50, 1,000 and 20,000 employees.</p></li><li><h3>Start and import</h3><p>Open localhost:8000, sign in as admin and import demo_data/personnel_demo_1000.xlsx.</p></li></ol>
+    <div>
+      <div class="codewrap"><button class="copy" type="button" data-copy="git clone https://github.com/Adel1637/hr-dashboard-lite.git
+cd hr-dashboard-lite
+python -m venv .venv &amp;&amp; source .venv/bin/activate
+pip install -r requirements.txt
+cp .env.example .env
+python demo_data/generate.py
+uvicorn app.main:app --reload" data-ok="Copied" data-label="Copy">Copy</button>
+      <pre class="code"><code>git clone https://github.com/Adel1637/hr-dashboard-lite.git
+cd hr-dashboard-lite
+python -m venv .venv &amp;&amp; source .venv/bin/activate
+<span class="c"># Windows: .venv\Scripts\activate</span>
+pip install -r requirements.txt
+
+cp .env.example .env
+<span class="c"># set ADMIN_PASSWORD (and JWT_SECRET for production)</span>
+
+python demo_data/generate.py
+
+uvicorn app.main:app --reload
+<span class="c"># open http://localhost:8000</span></code></pre></div>
+      <p class="note">Prefer Docker? Run: docker compose up -d --build</p>
+    </div>
+  </div>
+</div></section>
+
+<section id="compare"><div class="wrap">
+  <h2>Lite or Pro</h2><p class="sub">Lite is free and complete for headcount. Pro is the developer kit for people who deliver HR dashboards to clients.</p>
+  <div class="tablewrap"><table class="cmp"><thead><tr><th scope="col">&nbsp;</th><th scope="col">Lite</th><th scope="col">Pro</th></tr></thead><tbody><tr><td>Excel/CSV import, mapping assistant, validation report</td><td><span class=yes aria-label="yes">✓</span></td><td><span class=yes aria-label="yes">✓</span></td></tr><tr><td>Headcount module and global filters</td><td><span class=yes aria-label="yes">✓</span></td><td><span class=yes aria-label="yes">✓</span></td></tr><tr><td>Hires and exits: turnover, exit rate, exit reasons</td><td><span class=no aria-label="no">–</span></td><td><span class=yes aria-label="yes">✓</span></td></tr><tr><td>Demographics: age pyramid, tenure, gender balance, 55+</td><td><span class=no aria-label="no">–</span></td><td><span class=yes aria-label="yes">✓</span></td></tr><tr><td>Training: hours, access rate, cost, top courses</td><td><span class=no aria-label="no">–</span></td><td><span class=yes aria-label="yes">✓</span></td></tr><tr><td>Data table: column filters, pinned columns, saved views</td><td><span class=no aria-label="no">–</span></td><td><span class=yes aria-label="yes">✓</span></td></tr><tr><td>CSV and Excel exports</td><td><span class=no aria-label="no">–</span></td><td><span class=yes aria-label="yes">✓</span></td></tr><tr><td>Several users with roles (admin, HR, viewer)</td><td><span class=no aria-label="no">–</span></td><td><span class=yes aria-label="yes">✓</span></td></tr><tr><td>Audit log: logins, imports, exports</td><td><span class=no aria-label="no">–</span></td><td><span class=yes aria-label="yes">✓</span></td></tr><tr><td>Full documentation, commercial licence, updates and installation support</td><td><span class=no aria-label="no">–</span></td><td><span class=yes aria-label="yes">✓</span></td></tr></tbody></table></div>
+</div></section>
+
+<section id="plans" class="alt"><div class="wrap">
+  <h2>Pro plans</h2><p class="sub">One payment, source code included. Updates are included for 12 months.</p>
+  <div class="plans"><div class="plan "><h3>Personal</h3><div class="price">$49 <small>USD</small></div><p style="margin:0"><b>1 developer</b><br>1 project, internal or personal</p><ul><li>All Pro modules and source code</li><li>Documentation</li><li>12 months of updates</li></ul><a class="btn" aria-disabled="true" href="#plans" tabindex="-1">Launching soon</a></div><div class="plan main"><h3>Pro</h3><div class="price">$129 <small>USD</small></div><p style="margin:0"><b>1 developer</b><br>Unlimited projects, including for clients</p><ul><li>All Pro modules and source code</li><li>Documentation</li><li>12 months of updates</li><li>Installation support by email</li></ul><a class="btn" aria-disabled="true" href="#plans" tabindex="-1">Launching soon</a></div><div class="plan "><h3>Agency</h3><div class="price">$299 <small>USD</small></div><p style="margin:0"><b>Up to 10 developers</b><br>Unlimited projects, including white-label</p><ul><li>All Pro modules and source code</li><li>Documentation</li><li>12 months of updates</li><li>Installation support by email</li></ul><a class="btn" aria-disabled="true" href="#plans" tabindex="-1">Launching soon</a></div></div>
+  <p class="note"><a href="https://github.com/Adel1637">Pro launches soon. Follow Adel1637 on GitHub to be notified.</a></p>
+  <p class="note">The commercial licence forbids reselling or publishing the source code. Lite stays MIT.</p>
+</div></section>
+
+<section id="faq"><div class="wrap">
+  <h2>Questions</h2>
+  <div class="faq"><details><summary>Is the Lite edition really free?</summary><p>Yes. It is MIT-licensed, so you can use it personally or commercially, modify it and deliver it to clients.</p></details><details><summary>Does my data leave my server?</summary><p>No. The app runs on your machine or network, stores imports in its data folder and needs no Internet connection. The font is bundled and there is no tracking.</p></details><details><summary>What does my file need?</summary><p>An .xlsx or .csv file with one row per employee, present or departed. Only two columns are required: an employee ID and a hire date. Everything else is optional, and the mapping step matches your headers.</p></details><details><summary>What happens when a row is wrong?</summary><p>The import report lists each problem with its Excel row number and says whether the row was rejected or the value ignored. Typical causes: an exit date before the hire date, an unreadable date, an empty ID.</p></details><details><summary>How big can the file be?</summary><p>The default limit is 25 MB (MAX_UPLOAD_MB in .env). A fictional company of 20,000 employees imports and validates in under a second.</p></details><details><summary>How do I change the colour, logo or language?</summary><p>In the .env file: APP_NAME, APP_ACCENT, APP_LOGO and APP_DEFAULT_LANG. Restart the app to apply them.</p></details><details><summary>Can I use Lite on a client project?</summary><p>Yes, the MIT licence allows it. The Pro modules (turnover, demographics, training, exports, users and audit log) are what Pro adds.</p></details><details><summary>How do I report a bug or ask for a feature?</summary><p>Open an issue on GitHub. Bug reports with a small sample file are the easiest to fix.</p></details></div>
+</div></section>
+
+<footer><div class="wrap">
+  <span>Built by AG Studio. <a href="https://github.com/Adel1637/hr-dashboard-lite">GitHub</a>, <a href="https://github.com/Adel1637/hr-dashboard-lite/blob/main/LICENSE">MIT licence</a>, <a href="https://github.com/Adel1637/hr-dashboard-lite/issues">Issues</a></span>
+  <span>Font: Plus Jakarta Sans (SIL OFL 1.1)</span>
+</div></footer>
+
+<script>
+(function(){
+  var tabs=[].slice.call(document.querySelectorAll('[role=tab]'));
+  function show(i){tabs.forEach(function(b,j){var on=i===j;b.setAttribute('aria-selected',on);b.tabIndex=on?0:-1;
+    var p=document.getElementById(b.getAttribute('aria-controls'));if(on)p.removeAttribute('hidden');else p.setAttribute('hidden','');});}
+  tabs.forEach(function(b,i){b.addEventListener('click',function(){show(i)});
+    b.addEventListener('keydown',function(ev){var n=null;if(ev.key==='ArrowRight')n=(i+1)%tabs.length;if(ev.key==='ArrowLeft')n=(i+tabs.length-1)%tabs.length;
+      if(n!==null){ev.preventDefault();show(n);tabs[n].focus();}});});
+  var c=document.querySelector('.copy');
+  if(c)c.addEventListener('click',function(){var txt=c.getAttribute('data-copy');
+    function ok(){c.textContent=c.getAttribute('data-ok');setTimeout(function(){c.textContent=c.getAttribute('data-label')},1800)}
+    if(navigator.clipboard)navigator.clipboard.writeText(txt).then(ok,function(){});});
+})();
+</script>
+</body>
+</html>

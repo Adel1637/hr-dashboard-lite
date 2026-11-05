@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dashboard RH Lite : tableau de bord RH gratuit depuis un export Excel</title>
+<meta name="description" content="Tableau de bord RH des effectifs gratuit, installé chez vous. Importez un export Excel ou CSV, obtenez le numéro de ligne exact des erreurs, des filtres et des graphiques. FastAPI + Pandas, MIT.">
+<link rel="canonical" href="https://adel1637.github.io/hr-dashboard-lite/fr/">
+<link rel="alternate" hreflang="en" href="https://adel1637.github.io/hr-dashboard-lite/">
+<link rel="alternate" hreflang="fr" href="https://adel1637.github.io/hr-dashboard-lite/fr/">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<meta property="og:title" content="Dashboard RH Lite : tableau de bord RH gratuit depuis un export Excel">
+<meta property="og:description" content="Tableau de bord RH des effectifs gratuit, installé chez vous. Importez un export Excel ou CSV, obtenez le numéro de ligne exact des erreurs, des filtres et des graphiques. FastAPI + Pandas, MIT.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://adel1637.github.io/hr-dashboard-lite/fr/">
+<meta property="og:image" content="https://adel1637.github.io/hr-dashboard-lite/assets/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preload" href="../assets/fonts/plus-jakarta-sans-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/site.css">
+
+</head>
+<body>
+<a class="skip" href="#main">Aller au contenu</a>
+<div class="wrap">
+<header class="top">
+  <a class="brand" href="./"><svg viewBox="0 0 48 48" aria-hidden="true"><rect width="48" height="48" rx="11" fill="#0D9488"/><text x="24" y="33" text-anchor="middle" font-family="Plus Jakarta Sans,sans-serif" font-weight="800" font-size="26" fill="#fff">D</text></svg>HR Dashboard Lite</a>
+  <nav aria-label="Main"><a class="hide-s" href="#screens">Écrans</a><a class="hide-s" href="#quickstart">Démarrage</a><a class="hide-s" href="#compare">Lite ou Pro</a><a class="hide-s" href="#plans">Formules</a><a class="hide-s" href="#faq">FAQ</a><a class="hide-s" href="https://github.com/Adel1637/hr-dashboard-lite">GitHub</a><a class="lang" href="../" hreflang="en" lang="en" onclick='try{localStorage.setItem("lang-choice","1")}catch(e){}'>English</a></nav>
+</header>
+<main id="main">
+<div class="hero">
+  <div>
+    <h1>Transformez un export Excel RH en tableau de bord des effectifs.</h1>
+    <p class="lead">Gratuit, open source et installé sur votre propre serveur. Quand une ligne de votre fichier est invalide, le rapport d&#x27;import donne le numéro de ligne exact que montre Excel.</p>
+    <div class="cta"><a class="btn primary" href="https://github.com/Adel1637/hr-dashboard-lite">Récupérer sur GitHub</a><a class="btn" href="#screens">Voir les écrans</a></div>
+    <ul class="facts"><li>Licence MIT</li><li>49 tests automatisés</li><li>Français et anglais</li><li>Sans cloud, sans suivi</li></ul>
+  </div>
+  <div class="sheet" role="group" aria-label="Numéros de ligne comme dans Excel">
+    <div class="sheet-bar"><span>personnel.xlsx</span><span>Numéros de ligne comme dans Excel</span></div>
+    <table class="grid"><thead><tr><th class="n"></th><th>A</th><th>B</th><th class="c4">C</th><th class="h4">D</th></tr></thead><tbody><tr><td class="n">3</td><td style="font-weight:700">Matricule</td><td style="font-weight:700">Date d&#x27;embauche</td><td style="font-weight:700" class="c4">Date de départ</td><td style="font-weight:700" class="h4">Service</td></tr><tr><td class="n">4</td><td>E-0001</td><td>12/03/2018</td><td class="c4"></td><td class="h4">Finance</td></tr><tr class="gap"><td class="n">…</td><td colspan="4">…</td></tr><tr><td class="n">347</td><td>E-0344</td><td>02/09/2022</td><td class="c4"></td><td class="h4">Logistique</td></tr><tr class="bad"><td class="n">348</td><td>E-0345</td><td>14/06/2021</td><td class="c4">01/03/2019</td><td class="h4">Logistique</td></tr><tr><td class="n">349</td><td>E-0346</td><td>05/01/2023</td><td class="c4"></td><td class="h4">Ventes</td></tr></tbody></table>
+    <div class="report"><b>Rapport d&#x27;import : 1 ligne rejetée</b><p><span class="row">Ligne 348</span>Date de sortie antérieure à l&#x27;entrée (ligne rejetée)</p></div>
+  </div>
+</div>
+</main>
+</div>
+
+<section id="screens" class="alt"><div class="wrap">
+  <h2>Tableau de bord, données et import</h2><p class="sub">De vraies captures de l&#x27;édition gratuite, avec des données fictives. L&#x27;interface existe en français et en anglais, en thème clair et sombre.</p>
+  <div class="tabs" role="tablist" aria-label="Tableau de bord, données et import"><button role="tab" id="t-s1" aria-controls="p-s1" aria-selected="true" tabindex="0">Tableau de bord</button><button role="tab" id="t-s2" aria-controls="p-s2" aria-selected="false" tabindex="-1">Thème sombre</button><button role="tab" id="t-s3" aria-controls="p-s3" aria-selected="false" tabindex="-1">Import et correspondance</button></div>
+  <div role="tabpanel" id="p-s1" aria-labelledby="t-s1"><figure style="margin:0"><div class="shot"><img src="../assets/img/dashboard-fr.webp" width="1600" height="1012" alt="Tableau de bord: Effectif à une date, variation sur la période, part en CDI, évolution mensuelle. Chaque graphique suit les filtres globaux." ></div><figcaption class="shot-cap">Effectif à une date, variation sur la période, part en CDI, évolution mensuelle. Chaque graphique suit les filtres globaux.</figcaption></figure></div><div role="tabpanel" id="p-s2" aria-labelledby="t-s2" hidden><figure style="margin:0"><div class="shot"><img src="../assets/img/dashboard-dark-fr.webp" width="1600" height="1012" alt="Thème sombre: Le même tableau de bord en thème sombre. La couleur d&#x27;accent et le logo viennent de votre fichier .env." loading="lazy"></div><figcaption class="shot-cap">Le même tableau de bord en thème sombre. La couleur d&#x27;accent et le logo viennent de votre fichier .env.</figcaption></figure></div><div role="tabpanel" id="p-s3" aria-labelledby="t-s3" hidden><figure style="margin:0"><div class="shot"><img src="../assets/img/import-fr.webp" width="1600" height="1012" alt="Import et correspondance: L&#x27;étape de correspondance reconnaît les en-têtes français et anglais, mémorise votre choix et contrôle le fichier avant l&#x27;import." loading="lazy"></div><figcaption class="shot-cap">L&#x27;étape de correspondance reconnaît les en-têtes français et anglais, mémorise votre choix et contrôle le fichier avant l&#x27;import.</figcaption></figure></div>
+  <figure class="demo"><img src="../assets/../demo.gif" width="900" height="506" loading="lazy" alt="Démonstration : connexion, tableau de bord, tableau de données, thème sombre (légendes en anglais)"></figure>
+</div></section>
+
+<section id="features"><div class="wrap">
+  <h2>Ce que fait l&#x27;édition gratuite</h2><p class="sub">Tout ce qu&#x27;il faut pour passer de l&#x27;export de votre logiciel de paie à un tableau de bord que votre équipe peut ouvrir.</p>
+  <ul class="feat"><li><h3>Import Excel et CSV</h3><p>L&#x27;en-tête, le séparateur et l&#x27;encodage sont détectés. Une ligne de titre ou des lignes vides au-dessus des données ne posent pas de problème.</p></li><li><h3>Une correspondance qui se souvient</h3><p>Reconnaît des en-têtes comme « Date d&#x27;embauche », « Hire date » ou « CSP » et garde vos choix pour l&#x27;import suivant.</p></li><li><h3>Des numéros de ligne exacts</h3><p>Chaque erreur du rapport porte le numéro de ligne affiché par Excel, même avec des lignes vides avant ou entre les données.</p></li><li><h3>Module Effectifs</h3><p>Effectif à date et variation, part en CDI, évolution mensuelle, répartition par service, site et catégorie.</p></li><li><h3>Filtres globaux</h3><p>Date de référence, période, site, service, catégorie, contrat et sexe, appliqués partout en une fois.</p></li><li><h3>Un tableau de données qui tient la charge</h3><p>Recherche, tri et pagination côté serveur. Testé sur 20 000 salariés : import et validation en moins d&#x27;une seconde.</p></li><li><h3>Sécurité incluse</h3><p>Mots de passe hachés (scrypt), sessions JWT, limitation des tentatives de connexion, Content-Security-Policy stricte, aucun secret dans le code.</p></li><li><h3>À vos couleurs</h3><p>Thèmes clair et sombre, français et anglais, votre couleur et votre logo, affichage adapté au téléphone.</p></li></ul>
+</div></section>
+
+<section id="quickstart" class="alt"><div class="wrap">
+  <h2>En marche en cinq minutes</h2><p class="sub">Il vous faut Python 3.11 ou plus récent, ou Docker.</p>
+  <div class="qs">
+    <ol class="steps"><li><h3>Télécharger et installer</h3><p>Clonez le dépôt, créez un environnement virtuel et installez les dépendances.</p></li><li><h3>Renseigner vos secrets</h3><p>Copiez .env.example vers .env et renseignez ADMIN_PASSWORD. Laissé vide, un mot de passe aléatoire s&#x27;affiche une seule fois au premier démarrage.</p></li><li><h3>Créer des fichiers de démo</h3><p>Génère des fichiers fictifs de 50, 1 000 et 20 000 salariés.</p></li><li><h3>Lancer et importer</h3><p>Ouvrez localhost:8000, connectez-vous avec admin et importez demo_data/personnel_demo_1000.xlsx.</p></li></ol>
+    <div>
+      <div class="codewrap"><button class="copy" type="button" data-copy="git clone https://github.com/Adel1637/hr-dashboard-lite.git
+cd hr-dashboard-lite
+python -m venv .venv &amp;&amp; source .venv/bin/activate
+pip install -r requirements.txt
+cp .env.example .env
+python demo_data/generate.py
+uvicorn app.main:app --reload" data-ok="Copié" data-label="Copier">Copier</button>
+      <pre class="code"><code>git clone https://github.com/Adel1637/hr-dashboard-lite.git
+cd hr-dashboard-lite
+python -m venv .venv &amp;&amp; source .venv/bin/activate
+<span class="c"># Windows: .venv\Scripts\activate</span>
+pip install -r requirements.txt
+
+cp .env.example .env
+<span class="c"># set ADMIN_PASSWORD (and JWT_SECRET for production)</span>
+
+python demo_data/generate.py
+
+uvicorn app.main:app --reload
+<span class="c"># open http://localhost:8000</span></code></pre></div>
+      <p class="note">Vous préférez Docker ? Lancez : docker compose up -d --build</p>
+    </div>
+  </div>
+</div></section>
+
+<section id="compare"><div class="wrap">
+  <h2>Lite ou Pro</h2><p class="sub">Lite est gratuit et complet pour les effectifs. Pro est le kit développeur pour ceux qui livrent des tableaux de bord RH à des clients.</p>
+  <div class="tablewrap"><table class="cmp"><thead><tr><th scope="col">&nbsp;</th><th scope="col">Lite</th><th scope="col">Pro</th></tr></thead><tbody><tr><td>Import Excel/CSV, assistant de correspondance, rapport de contrôle</td><td><span class=yes aria-label="yes">✓</span></td><td><span class=yes aria-label="yes">✓</span></td></tr><tr><td>Module Effectifs et filtres globaux</td><td><span class=yes aria-label="yes">✓</span></td><td><span class=yes aria-label="yes">✓</span></td></tr><tr><td>Mouvements : turnover, taux de sortie, motifs de départ</td><td><span class=no aria-label="no">–</span></td><td><span class=yes aria-label="yes">✓</span></td></tr><tr><td>Démographie : pyramide des âges, ancienneté, parité, 55 ans et plus</td><td><span class=no aria-label="no">–</span></td><td><span class=yes aria-label="yes">✓</span></td></tr><tr><td>Formation : heures, taux d&#x27;accès, coût, formations les plus suivies</td><td><span class=no aria-label="no">–</span></td><td><span class=yes aria-label="yes">✓</span></td></tr><tr><td>Tableau de données : filtres par colonne, colonnes épinglées, vues enregistrées</td><td><span class=no aria-label="no">–</span></td><td><span class=yes aria-label="yes">✓</span></td></tr><tr><td>Exports CSV et Excel</td><td><span class=no aria-label="no">–</span></td><td><span class=yes aria-label="yes">✓</span></td></tr><tr><td>Plusieurs utilisateurs avec rôles (admin, RH, lecteur)</td><td><span class=no aria-label="no">–</span></td><td><span class=yes aria-label="yes">✓</span></td></tr><tr><td>Journal d&#x27;audit : connexions, imports, exports</td><td><span class=no aria-label="no">–</span></td><td><span class=yes aria-label="yes">✓</span></td></tr><tr><td>Documentation complète, licence commerciale, mises à jour et aide à l&#x27;installation</td><td><span class=no aria-label="no">–</span></td><td><span class=yes aria-label="yes">✓</span></td></tr></tbody></table></div>
+</div></section>
+
+<section id="plans" class="alt"><div class="wrap">
+  <h2>Formules Pro</h2><p class="sub">Un seul paiement, code source inclus. Les mises à jour sont comprises pendant 12 mois.</p>
+  <div class="plans"><div class="plan "><h3>Personnelle</h3><div class="price">$49 <small>USD</small></div><p style="margin:0"><b>1 développeur</b><br>1 projet, interne ou personnel</p><ul><li>Tous les modules Pro et le code source</li><li>Documentation</li><li>12 mois de mises à jour</li></ul><a class="btn" aria-disabled="true" href="#plans" tabindex="-1">Bientôt disponible</a></div><div class="plan main"><h3>Pro</h3><div class="price">$129 <small>USD</small></div><p style="margin:0"><b>1 développeur</b><br>Projets illimités, y compris pour des clients</p><ul><li>Tous les modules Pro et le code source</li><li>Documentation</li><li>12 mois de mises à jour</li><li>Aide à l&#x27;installation par e-mail</li></ul><a class="btn" aria-disabled="true" href="#plans" tabindex="-1">Bientôt disponible</a></div><div class="plan "><h3>Agence</h3><div class="price">$299 <small>USD</small></div><p style="margin:0"><b>Jusqu&#x27;à 10 développeurs</b><br>Projets illimités, y compris en marque blanche</p><ul><li>Tous les modules Pro et le code source</li><li>Documentation</li><li>12 mois de mises à jour</li><li>Aide à l&#x27;installation par e-mail</li></ul><a class="btn" aria-disabled="true" href="#plans" tabindex="-1">Bientôt disponible</a></div></div>
+  <p class="note"><a href="https://github.com/Adel1637">Pro arrive bientôt. Suivez Adel1637 sur GitHub pour être prévenu.</a></p>
+  <p class="note">La licence commerciale interdit de revendre ou de publier le code source. Lite reste en MIT.</p>
+</div></section>
+
+<section id="faq"><div class="wrap">
+  <h2>Questions fréquentes</h2>
+  <div class="faq"><details><summary>L&#x27;édition Lite est-elle vraiment gratuite ?</summary><p>Oui. Elle est sous licence MIT : vous pouvez l&#x27;utiliser à titre personnel ou commercial, la modifier et la livrer à des clients.</p></details><details><summary>Mes données quittent-elles mon serveur ?</summary><p>Non. L&#x27;application tourne sur votre machine ou votre réseau, conserve les imports dans son dossier de données et n&#x27;a pas besoin d&#x27;Internet. La police est incluse et il n&#x27;y a aucun suivi.</p></details><details><summary>De quoi mon fichier a-t-il besoin ?</summary><p>D&#x27;un fichier .xlsx ou .csv avec une ligne par salarié, présent ou parti. Deux colonnes seulement sont obligatoires : un matricule et une date d&#x27;entrée. Le reste est facultatif et l&#x27;étape de correspondance associe vos en-têtes.</p></details><details><summary>Que se passe-t-il quand une ligne est fausse ?</summary><p>Le rapport d&#x27;import liste chaque problème avec son numéro de ligne Excel et indique si la ligne est rejetée ou si la valeur est ignorée. Causes courantes : date de sortie avant l&#x27;entrée, date illisible, matricule vide.</p></details><details><summary>Quelle taille de fichier ?</summary><p>La limite par défaut est de 25 Mo (MAX_UPLOAD_MB dans .env). Une entreprise fictive de 20 000 salariés s&#x27;importe et se valide en moins d&#x27;une seconde.</p></details><details><summary>Comment changer la couleur, le logo ou la langue ?</summary><p>Dans le fichier .env : APP_NAME, APP_ACCENT, APP_LOGO et APP_DEFAULT_LANG. Redémarrez l&#x27;application pour les appliquer.</p></details><details><summary>Puis-je utiliser Lite pour un projet client ?</summary><p>Oui, la licence MIT l&#x27;autorise. Ce que Pro ajoute, ce sont les modules Mouvements, Démographie et Formation, les exports, les utilisateurs et le journal d&#x27;audit.</p></details><details><summary>Comment signaler un bug ou demander une fonction ?</summary><p>Ouvrez un ticket sur GitHub. Un signalement accompagné d&#x27;un petit fichier d&#x27;exemple est le plus simple à corriger.</p></details></div>
+</div></section>
+
+<footer><div class="wrap">
+  <span>Réalisé par AG Studio. <a href="https://github.com/Adel1637/hr-dashboard-lite">GitHub</a>, <a href="https://github.com/Adel1637/hr-dashboard-lite/blob/main/LICENSE">Licence MIT</a>, <a href="https://github.com/Adel1637/hr-dashboard-lite/issues">Issues</a></span>
+  <span>Police : Plus Jakarta Sans (SIL OFL 1.1)</span>
+</div></footer>
+
+<script>
+(function(){
+  var tabs=[].slice.call(document.querySelectorAll('[role=tab]'));
+  function show(i){tabs.forEach(function(b,j){var on=i===j;b.setAttribute('aria-selected',on);b.tabIndex=on?0:-1;
+    var p=document.getElementById(b.getAttribute('aria-controls'));if(on)p.removeAttribute('hidden');else p.setAttribute('hidden','');});}
+  tabs.forEach(function(b,i){b.addEventListener('click',function(){show(i)});
+    b.addEventListener('keydown',function(ev){var n=null;if(ev.key==='ArrowRight')n=(i+1)%tabs.length;if(ev.key==='ArrowLeft')n=(i+tabs.length-1)%tabs.length;
+      if(n!==null){ev.preventDefault();show(n);tabs[n].focus();}});});
+  var c=document.querySelector('.copy');
+  if(c)c.addEventListener('click',function(){var txt=c.getAttribute('data-copy');
+    function ok(){c.textContent=c.getAttribute('data-ok');setTimeout(function(){c.textContent=c.getAttribute('data-label')},1800)}
+    if(navigator.clipboard)navigator.clipboard.writeText(txt).then(ok,function(){});});
+})();
+</script>
+</body>
+</html>
