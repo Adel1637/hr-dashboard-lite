@@ -151,7 +151,8 @@ _CONVERTERS = {"str": _to_text, "date": _to_date, "number": _to_number, "sex": _
 
 
 def apply_mapping(frame: pd.DataFrame, schema: DatasetSchema, mapping: dict[str, str | None],
-                  header_row: int = 0) -> tuple[pd.DataFrame, ImportReport]:
+                  header_row: int = 0,
+                  excel_rows: list[int] | None = None) -> tuple[pd.DataFrame, ImportReport]:
     missing = [k for k in schema.required_keys if not mapping.get(k)]
     if missing:
         raise MappingError("Champs obligatoires non reliés : " + ", ".join(missing))
@@ -160,8 +161,9 @@ def apply_mapping(frame: pd.DataFrame, schema: DatasetSchema, mapping: dict[str,
         raise MappingError("Colonnes introuvables dans le fichier : " + ", ".join(unknown))
 
     report = ImportReport(rows_total=len(frame))
-    # Numéro de ligne tel qu'affiché dans Excel : en-tête + 1, puis base 1.
-    excel_row = frame.index + header_row + 2
+    # Numéro de ligne tel qu'affiché dans Excel. Si `excel_rows` est fourni (import réel), il tient
+    # compte des lignes vides ; sinon on suppose un tableau compact sous l'en-tête.
+    excel_row = pd.Index(excel_rows) if excel_rows is not None else frame.index + header_row + 2
     out = pd.DataFrame(index=frame.index)
     rejected = pd.Series(False, index=frame.index)
 

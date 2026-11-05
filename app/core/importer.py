@@ -27,7 +27,10 @@ class RawTable:
     frame: pd.DataFrame
     sheets: list[str]
     sheet: str | None
-    header_row: int  # index 0 de la ligne d'en-tête dans le fichier
+    header_row: int  # index 0 de la ligne d'en-tête dans le fichier (lignes vides comprises)
+    # Numéro de ligne affiché dans Excel (base 1) de chaque ligne de `frame`, lignes vides
+    # comprises : c'est ce numéro que le rapport d'import indique.
+    excel_rows: list[int] | None = None
 
 
 def _extension(filename: str) -> str:
@@ -51,6 +54,7 @@ def _find_header_row(raw: pd.DataFrame) -> int:
 
 
 def _apply_header(raw: pd.DataFrame, header_row: int) -> pd.DataFrame:
+    """Applique l'en-tête ; l'index du résultat reste celui de `raw` (positions d'origine)."""
     header = [
         str(v).strip() if pd.notna(v) and str(v).strip() else f"Colonne {i + 1}"
         for i, v in enumerate(raw.iloc[header_row])
@@ -66,7 +70,7 @@ def _apply_header(raw: pd.DataFrame, header_row: int) -> pd.DataFrame:
     frame = frame.dropna(how="all")
     # Colonnes entièrement vides et sans nom : on les retire.
     empty = [c for c in frame.columns if c.startswith("Colonne ") and frame[c].isna().all()]
-    return frame.drop(columns=empty).reset_index(drop=True)
+    return frame.drop(columns=empty)
 
 
 def _read_csv(content: bytes) -> pd.DataFrame:
@@ -83,8 +87,12 @@ def _read_csv(content: bytes) -> pd.DataFrame:
         delimiter = csv.Sniffer().sniff(sample, delimiters=";,\t|").delimiter
     except csv.Error:
         delimiter = ";" if sample.count(";") > sample.count(",") else ","
+    # Largeur = ligne la plus large : un titre d'une seule colonne au-dessus de l'en-tête
+    # ferait sinon échouer l'analyse (ParserError).
+    width = max((len(row) for row in csv.reader(io.StringIO(text), delimiter=delimiter)),
+                default=1)
     return pd.read_csv(io.StringIO(text), sep=delimiter, header=None, dtype=object,
-                       skip_blank_lines=False)
+                       skip_blank_lines=False, names=range(width))
 
 
 def read_table(content: bytes, filename: str, sheet: str | None = None,
@@ -112,13 +120,20 @@ def read_table(content: bytes, filename: str, sheet: str | None = None,
     except Exception as exc:  # fichier corrompu, format inattendu…
         raise ImportError_(f"Lecture impossible : {exc.__class__.__name__}.") from exc
 
-    raw = raw.dropna(how="all").reset_index(drop=True)
+    # On écarte les lignes vides mais on garde leur position d'origine : le rapport d'import
+    # doit citer le numéro de ligne réellement affiché dans Excel.
+    raw = raw.dropna(how="all")
     if raw.empty:
         raise ImportError_("Aucune donnée trouvée dans le fichier.")
+    positions = raw.index.to_numpy()
+    raw = raw.reset_index(drop=True)
     header_row = _find_header_row(raw)
     frame = _apply_header(raw, header_row)
+    excel_rows = [int(positions[i]) + 1 for i in frame.index]
+    frame = frame.reset_index(drop=True)
     if frame.empty:
         raise ImportError_("Le fichier ne contient qu'une ligne d'en-tête.")
     if len(frame) > MAX_ROWS:
         raise ImportError_(f"Trop de lignes (maximum {MAX_ROWS:,}).".replace(",", " "))
-    return RawTable(frame=frame, sheets=sheets, sheet=chosen, header_row=header_row)
+    return RawTable(frame=frame, sheets=sheets, sheet=chosen,
+                    header_row=int(positions[header_row]), excel_rows=excel_rows)
