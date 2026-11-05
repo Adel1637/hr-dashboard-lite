@@ -6,6 +6,8 @@ This project follows [Semantic Versioning](https://semver.org/).
 
 ### Fixed
 
+- Import on phones: the column-mapping screen no longer overflows the page (dropdowns were
+  cut off on narrow screens). Regression test added.
 - Sign-in page: white text on a darkened accent, readable in both themes and with any accent
   colour (WCAG AA contrast checked by a test).
 
