@@ -62,3 +62,25 @@ def test_error_row_is_exact_in_csv_with_blank_lines():
             "A2;2021-05-01;2019-01-01;H\n")
     table = read_table(text.encode("utf-8"), "export.csv")
     assert [e["row"] for e in _errors(table)] == [6]
+
+
+def test_every_error_code_has_a_label_in_both_languages():
+    import json
+    from pathlib import Path
+
+    from app.core.mapping import ERROR_CODES
+
+    locales = Path(__file__).resolve().parent.parent / "locales"
+    for lang in ("fr", "en"):
+        strings = json.loads((locales / f"{lang}.json").read_text(encoding="utf-8"))
+        for code in ERROR_CODES:
+            assert strings.get(f"import.err.{code}"), (lang, code)
+
+
+def test_errors_carry_a_known_code():
+    from app.core.mapping import ERROR_CODES
+
+    content = _xlsx({1: HEADER, 2: ["A1", "2020-01-01", None, "F"],
+                     3: ["A2", "2021-05-01", "2019-01-01", "H"]})
+    errors = _errors(read_table(content, "export.xlsx"))
+    assert errors and all(e["code"] in ERROR_CODES for e in errors)

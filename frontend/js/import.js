@@ -111,6 +111,12 @@ function renderMapping(work, data, file) {
       confirm));
 }
 
+// Libellé traduit si le serveur fournit un code, sinon message brut.
+function errorText(e) {
+  const text = e.code ? t(`import.err.${e.code}`) : "";
+  return text && text !== `import.err.${e.code}` ? text : e.message;
+}
+
 function renderReport(work, report) {
   const errors = report.errors.length ? [
     el("div", { class: "label", style: "margin:18px 0 8px" }, t("import.errors")),
@@ -119,7 +125,7 @@ function renderReport(work, report) {
         .map((k) => el("th", {}, t(k))))),
       el("tbody", {}, report.errors.map((e) => el("tr", {},
         el("td", { class: "type-number" }, e.row), el("td", {}, t(`field.${e.field}`)),
-        el("td", {}, e.value), el("td", {}, e.message)))))),
+        el("td", {}, e.value), el("td", {}, errorText(e))))))),
   ] : [];
   mount(work,
     el("div", { class: "card-title" }, t("import.done")),

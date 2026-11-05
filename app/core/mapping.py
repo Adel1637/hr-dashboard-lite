@@ -72,6 +72,10 @@ def suggest_mapping(columns: list[str], schema: DatasetSchema,
     return mapping
 
 
+# Codes d'erreur de ligne ; le libellé affiché vient des fichiers de langue (import.err.<code>).
+ERROR_CODES = ("invalid_rejected", "invalid_ignored", "required_empty", "exit_before_hire")
+
+
 @dataclass
 class ImportReport:
     rows_total: int = 0
@@ -80,11 +84,11 @@ class ImportReport:
     errors: list[dict] = field(default_factory=list)
     warnings: list[str] = field(default_factory=list)
 
-    def add_error(self, row: int, field_key: str, value, message: str) -> None:
+    def add_error(self, row: int, field_key: str, value, message: str, code: str = "") -> None:
         if len(self.errors) < MAX_REPORTED_ERRORS:
             self.errors.append({"row": int(row), "field": field_key,
                                 "value": "" if value is None else str(value)[:80],
-                                "message": message})
+                                "message": message, "code": code})
 
     def as_dict(self) -> dict:
         return {
@@ -179,12 +183,13 @@ def apply_mapping(frame: pd.DataFrame, schema: DatasetSchema, mapping: dict[str,
 
         for idx in source.index[invalid]:
             msg = "valeur invalide" + (" (ligne rejetée)" if f.required else " (ignorée)")
-            report.add_error(excel_row[frame.index.get_loc(idx)], f.key, source[idx], msg)
+            report.add_error(excel_row[frame.index.get_loc(idx)], f.key, source[idx], msg,
+                             "invalid_rejected" if f.required else "invalid_ignored")
         if f.required:
             rejected |= invalid
             for idx in source.index[missing_required]:
                 report.add_error(excel_row[frame.index.get_loc(idx)], f.key, "",
-                                 "champ obligatoire vide (ligne rejetée)")
+                                 "champ obligatoire vide (ligne rejetée)", "required_empty")
             rejected |= missing_required
         out[f.key] = converted
 
@@ -193,7 +198,8 @@ def apply_mapping(frame: pd.DataFrame, schema: DatasetSchema, mapping: dict[str,
         for idx in out.index[incoherent & ~rejected]:
             report.add_error(excel_row[frame.index.get_loc(idx)], "date_sortie",
                              out.at[idx, "date_sortie"].date(),
-                             "date de sortie antérieure à l'entrée (ligne rejetée)")
+                             "date de sortie antérieure à l'entrée (ligne rejetée)",
+                             "exit_before_hire")
         rejected |= incoherent
 
     clean = out[~rejected].copy()
