@@ -74,6 +74,8 @@ def suggest_mapping(columns: list[str], schema: DatasetSchema,
 
 # Codes d'erreur de ligne ; le libellé affiché vient des fichiers de langue (import.err.<code>).
 ERROR_CODES = ("invalid_rejected", "invalid_ignored", "required_empty", "exit_before_hire")
+# Avertissements du rapport ; libellé traduit dans les fichiers de langue (import.notice.<code>).
+NOTICE_CODES = ("duplicate_ids", "csv_multiline")
 
 
 @dataclass
@@ -83,6 +85,12 @@ class ImportReport:
     rows_rejected: int = 0
     errors: list[dict] = field(default_factory=list)
     warnings: list[str] = field(default_factory=list)
+    notices: list[dict] = field(default_factory=list)
+
+    def add_notice(self, code: str, message: str, n: int) -> None:
+        """Avertissement avec code (traduit côté interface) et message de secours en français."""
+        self.notices.append({"code": code, "n": int(n), "message": message})
+        self.warnings.append(message)
 
     def add_error(self, row: int, field_key: str, value, message: str, code: str = "") -> None:
         if len(self.errors) < MAX_REPORTED_ERRORS:
@@ -98,6 +106,7 @@ class ImportReport:
             "errors": self.errors,
             "errors_truncated": self.rows_rejected > len(self.errors),
             "warnings": self.warnings,
+            "notices": self.notices,
         }
 
 
@@ -156,7 +165,8 @@ _CONVERTERS = {"str": _to_text, "date": _to_date, "number": _to_number, "sex": _
 
 def apply_mapping(frame: pd.DataFrame, schema: DatasetSchema, mapping: dict[str, str | None],
                   header_row: int = 0,
-                  excel_rows: list[int] | None = None) -> tuple[pd.DataFrame, ImportReport]:
+                  excel_rows: list[int] | None = None,
+                  multiline_cells: int = 0) -> tuple[pd.DataFrame, ImportReport]:
     missing = [k for k in schema.required_keys if not mapping.get(k)]
     if missing:
         raise MappingError("Champs obligatoires non reliés : " + ", ".join(missing))
@@ -165,6 +175,13 @@ def apply_mapping(frame: pd.DataFrame, schema: DatasetSchema, mapping: dict[str,
         raise MappingError("Colonnes introuvables dans le fichier : " + ", ".join(unknown))
 
     report = ImportReport(rows_total=len(frame))
+    if multiline_cells:
+        report.add_notice(
+            "csv_multiline",
+            f"{multiline_cells} ligne(s) de ce CSV contiennent un retour à la ligne dans une "
+            "cellule : les numéros de ligne suivent Excel ; dans un éditeur de texte, le même "
+            "enregistrement peut apparaître plus bas.",
+            multiline_cells)
     # Numéro de ligne tel qu'affiché dans Excel. Si `excel_rows` est fourni (import réel), il tient
     # compte des lignes vides ; sinon on suppose un tableau compact sous l'en-tête.
     excel_row = pd.Index(excel_rows) if excel_rows is not None else frame.index + header_row + 2
@@ -206,9 +223,10 @@ def apply_mapping(frame: pd.DataFrame, schema: DatasetSchema, mapping: dict[str,
     if schema.key == "personnel":
         dup = clean["matricule"].duplicated(keep="last")
         if dup.any():
-            report.warnings.append(
-                f"{int(dup.sum())} matricule(s) en double : seule la dernière ligne est conservée."
-            )
+            report.add_notice(
+                "duplicate_ids",
+                f"{int(dup.sum())} matricule(s) en double : seule la dernière ligne est conservée.",
+                int(dup.sum()))
             clean = clean[~dup]
 
     report.rows_rejected = int(rejected.sum())

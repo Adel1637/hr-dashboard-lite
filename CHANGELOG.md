@@ -4,6 +4,20 @@ This project follows [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+### Changed
+
+- Import report: the row column is now labelled "Excel row" / "Ligne Excel", so it is clear which
+  numbering is used.
+- Import report warnings follow the interface language (the duplicate-ID warning was always French).
+
+### Added
+
+- CSV import: a warning when cells contain line breaks. Such a cell takes one row in Excel (the number
+  shown in the report) but several lines in a text editor.
+- Tests: the same bad record must get the same row number in CSV and in Excel, over a grid of
+  blank-line positions (before the header, between records, with or without a title line), plus
+  multi-line cells in both formats. Thanks to Lv Shao Mu for the suggestions.
+
 ## [0.1.1] — 2026-11-05
 
 ### Fixed

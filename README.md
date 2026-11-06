@@ -76,6 +76,7 @@ With Docker: `docker compose up -d --build`, then open <http://localhost:8000>.
 | Port 8000 already in use | Start with `uvicorn app.main:app --port 8001` and open that port. |
 | You lost the admin password | Delete `data/users.json`, optionally set `ADMIN_PASSWORD` in `.env`, then restart: the admin account is recreated. |
 | The import says a row is rejected | Open the Excel file at the row number shown. The report lists the cause for each row. |
+| A CSV row number doesn't match my text editor | The report counts rows as Excel shows them. A cell containing a line break takes one row in Excel but several lines in a text editor; the report warns when this happens. |
 | App refuses to start in production | `APP_ENV=production` needs a `JWT_SECRET` of at least 32 characters. |
 
 ### Your own file

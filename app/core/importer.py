@@ -31,6 +31,9 @@ class RawTable:
     # Numéro de ligne affiché dans Excel (base 1) de chaque ligne de `frame`, lignes vides
     # comprises : c'est ce numéro que le rapport d'import indique.
     excel_rows: list[int] | None = None
+    # CSV : nombre d'enregistrements dont une cellule contient un retour à la ligne. Excel les
+    # affiche sur une seule ligne (numéro du rapport), un éditeur de texte sur plusieurs.
+    multiline_cells: int = 0
 
 
 def _extension(filename: str) -> str:
@@ -73,7 +76,7 @@ def _apply_header(raw: pd.DataFrame, header_row: int) -> pd.DataFrame:
     return frame.drop(columns=empty)
 
 
-def _read_csv(content: bytes) -> pd.DataFrame:
+def _read_csv(content: bytes) -> tuple[pd.DataFrame, int]:
     for encoding in ("utf-8-sig", "cp1252", "latin-1"):
         try:
             text = content.decode(encoding)
@@ -89,10 +92,15 @@ def _read_csv(content: bytes) -> pd.DataFrame:
         delimiter = ";" if sample.count(";") > sample.count(",") else ","
     # Largeur = ligne la plus large : un titre d'une seule colonne au-dessus de l'en-tête
     # ferait sinon échouer l'analyse (ParserError).
-    width = max((len(row) for row in csv.reader(io.StringIO(text), delimiter=delimiter)),
-                default=1)
-    return pd.read_csv(io.StringIO(text), sep=delimiter, header=None, dtype=object,
-                       skip_blank_lines=False, names=range(width))
+    # On compte au passage les enregistrements dont une cellule contient un retour à la ligne.
+    width, multiline = 1, 0
+    for row in csv.reader(io.StringIO(text), delimiter=delimiter):
+        width = max(width, len(row))
+        if any("\n" in cell or "\r" in cell for cell in row):
+            multiline += 1
+    frame = pd.read_csv(io.StringIO(text), sep=delimiter, header=None, dtype=object,
+                        skip_blank_lines=False, names=range(width))
+    return frame, multiline
 
 
 def read_table(content: bytes, filename: str, sheet: str | None = None,
@@ -104,9 +112,10 @@ def read_table(content: bytes, filename: str, sheet: str | None = None,
 
     ext = _extension(filename)
     sheets: list[str] = []
+    multiline = 0
     try:
         if ext == ".csv":
-            raw = _read_csv(content)
+            raw, multiline = _read_csv(content)
             chosen = None
         else:
             if not content.startswith(b"PK"):
@@ -136,4 +145,5 @@ def read_table(content: bytes, filename: str, sheet: str | None = None,
     if len(frame) > MAX_ROWS:
         raise ImportError_(f"Trop de lignes (maximum {MAX_ROWS:,}).".replace(",", " "))
     return RawTable(frame=frame, sheets=sheets, sheet=chosen,
-                    header_row=int(positions[header_row]), excel_rows=excel_rows)
+                    header_row=int(positions[header_row]), excel_rows=excel_rows,
+                    multiline_cells=multiline)

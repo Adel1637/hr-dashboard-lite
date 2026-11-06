@@ -117,6 +117,16 @@ function errorText(e) {
   return text && text !== `import.err.${e.code}` ? text : e.message;
 }
 
+// Avertissements : traduits par code (serveur récent), sinon texte brut (ancien format).
+function noticeTexts(report) {
+  if (!report.notices) return report.warnings || [];
+  return report.notices.map((n) => {
+    const key = `import.notice.${n.code}`;
+    const text = t(key, { n: fmtNumber(n.n) });
+    return text !== key ? text : n.message;
+  });
+}
+
 function renderReport(work, report) {
   const errors = report.errors.length ? [
     el("div", { class: "label", style: "margin:18px 0 8px" }, t("import.errors")),
@@ -133,7 +143,7 @@ function renderReport(work, report) {
       el("span", { class: "badge good" }, t("import.accepted", { n: fmtNumber(report.rows_accepted) })),
       report.rows_rejected ? el("span", { class: "badge bad" },
         t("import.rejected", { n: fmtNumber(report.rows_rejected) })) : null),
-    ...report.warnings.map((w) => el("div", { class: "notice", style: "margin-bottom:8px" }, w)),
+    ...noticeTexts(report).map((w) => el("div", { class: "notice", style: "margin-bottom:8px" }, w)),
     ...errors,
     el("div", { class: "prefs", style: "margin-top:18px" },
       el("a", { class: "btn primary", href: "#/dashboard" }, t("nav.dashboard")),

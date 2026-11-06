@@ -80,6 +80,7 @@ Avec Docker : `docker compose up -d --build`, puis ouvrez <http://localhost:8000
 | Le port 8000 est déjà utilisé | Lancez `uvicorn app.main:app --port 8001` et ouvrez ce port. |
 | Mot de passe administrateur perdu | Supprimez `data/users.json`, renseignez éventuellement `ADMIN_PASSWORD` dans `.env`, puis redémarrez : le compte admin est recréé. |
 | L'import indique une ligne rejetée | Ouvrez le fichier Excel à la ligne indiquée. Le rapport donne la cause de chaque ligne. |
+| Le numéro de ligne d'un CSV ne correspond pas à mon éditeur de texte | Le rapport compte les lignes comme Excel les affiche. Une cellule qui contient un retour à la ligne occupe une ligne dans Excel mais plusieurs dans un éditeur de texte ; le rapport le signale. |
 | L'application refuse de démarrer en production | `APP_ENV=production` exige un `JWT_SECRET` d'au moins 32 caractères. |
 
 ### Votre propre fichier

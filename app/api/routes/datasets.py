@@ -91,7 +91,8 @@ def confirm(key: str, body: ConfirmIn, user: User = Depends(current_user),
     mapping = {f.key: body.mapping.get(f.key) or None for f in schema.fields}
     try:
         frame, report = apply_mapping(pending.table.frame, schema, mapping,
-                                      pending.table.header_row, pending.table.excel_rows)
+                                      pending.table.header_row, pending.table.excel_rows,
+                                      pending.table.multiline_cells)
     except MappingError as exc:
         raise HTTPException(status.HTTP_400_BAD_REQUEST, str(exc)) from exc
 
